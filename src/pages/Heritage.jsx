@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useWatch } from '../context/WatchContext';
+import { getAssetUrl } from '../utils/assets';
 import { 
   Sparkles, 
   Award, 
@@ -119,7 +120,7 @@ export default function Heritage() {
             playsInline
             className="w-full h-[450px] object-cover opacity-75 filter contrast-110"
           >
-            <source src="/videos/34855-403777679_medium.mp4" type="video/mp4" />
+            <source src={getAssetUrl('videos/34855-403777679_medium.mp4')} type="video/mp4" />
           </video>
           <div className="absolute inset-0 bg-gradient-to-t from-[#07080B] via-transparent to-[#07080B]/50"></div>
           

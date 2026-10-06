@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useWatch } from '../context/WatchContext';
+import { getAssetUrl } from '../utils/assets';
 import { 
   Layers, 
   Package, 
@@ -56,7 +57,7 @@ export default function AdminDashboard() {
     frequency: '28,800 vph (4 Hz)',
     hallmark: 'Poinçon de Genève',
     availability: 'In Stock',
-    images: ['/images/image-1.png'],
+    images: [getAssetUrl('images/image-1.png')],
     complications: ['Perpetual Calendar', 'Moon Phases'],
     tagline: 'Precision Swiss mechanical horology engineered for timeless elegance.'
   });

@@ -1,6 +1,7 @@
 // CHRONOVA - Swiss Mechanical Watches Haute Horlogerie Database
+import { getAssetUrl } from '../utils/assets';
 
-export const INITIAL_WATCHES = [
+const RAW_WATCHES = [
   {
     id: "chr-6002g",
     name: "Celestial Sky Grand Tourbillon",
@@ -10,12 +11,12 @@ export const INITIAL_WATCHES = [
     price: 345000,
     priceFormatted: "345,000 CHF",
     images: [
-      "/images/image-1.png",
-      "/images/image-14.png",
-      "/images/image-18.png",
-      "/images/image-22.png"
+      "images/image-1.png",
+      "images/image-14.png",
+      "images/image-18.png",
+      "images/image-22.png"
     ],
-    video: "/videos/204582-925146042_medium.mp4",
+    video: "videos/204582-925146042_medium.mp4",
     featured: true,
     isNew: true,
     bestseller: false,
@@ -91,12 +92,12 @@ export const INITIAL_WATCHES = [
     price: 218000,
     priceFormatted: "218,000 CHF",
     images: [
-      "/images/image-15.png",
-      "/images/image-19.png",
-      "/images/image-24.png",
-      "/images/image-29.png"
+      "images/image-15.png",
+      "images/image-19.png",
+      "images/image-24.png",
+      "images/image-29.png"
     ],
-    video: "/videos/34855-403777679_medium.mp4",
+    video: "videos/34855-403777679_medium.mp4",
     featured: true,
     isNew: false,
     bestseller: true,
@@ -169,12 +170,12 @@ export const INITIAL_WATCHES = [
     price: 385000,
     priceFormatted: "385,000 CHF",
     images: [
-      "/images/image-18.png",
-      "/images/image-1.png",
-      "/images/image-16.png",
-      "/images/image-28.png"
+      "images/image-18.png",
+      "images/image-1.png",
+      "images/image-16.png",
+      "images/image-28.png"
     ],
-    video: "/videos/10853-226632937_medium.mp4",
+    video: "videos/10853-226632937_medium.mp4",
     featured: true,
     isNew: true,
     bestseller: false,
@@ -246,12 +247,12 @@ export const INITIAL_WATCHES = [
     price: 115000,
     priceFormatted: "115,000 CHF",
     images: [
-      "/images/image-14.png",
-      "/images/image-20.png",
-      "/images/image-25.png",
-      "/images/image-10.png"
+      "images/image-14.png",
+      "images/image-20.png",
+      "images/image-25.png",
+      "images/image-10.png"
     ],
-    video: "/videos/55760-503981016_medium.mp4",
+    video: "videos/55760-503981016_medium.mp4",
     featured: true,
     isNew: false,
     bestseller: true,
@@ -324,12 +325,12 @@ export const INITIAL_WATCHES = [
     price: 94000,
     priceFormatted: "94,000 CHF",
     images: [
-      "/images/image-12.png",
-      "/images/image-11.png",
-      "/images/image-26.png",
-      "/images/image-4.png"
+      "images/image-12.png",
+      "images/image-11.png",
+      "images/image-26.png",
+      "images/image-4.png"
     ],
-    video: "/videos/204582-925146042_medium.mp4",
+    video: "videos/204582-925146042_medium.mp4",
     featured: false,
     isNew: false,
     bestseller: true,
@@ -400,12 +401,12 @@ export const INITIAL_WATCHES = [
     price: 32000,
     priceFormatted: "32,000 CHF",
     images: [
-      "/images/image-16.png",
-      "/images/image-17.png",
-      "/images/image-21.png",
-      "/images/image-5.png"
+      "images/image-16.png",
+      "images/image-17.png",
+      "images/image-21.png",
+      "images/image-5.png"
     ],
-    video: "/videos/10853-226632937_medium.mp4",
+    video: "videos/10853-226632937_medium.mp4",
     featured: false,
     isNew: true,
     bestseller: true,
@@ -476,12 +477,12 @@ export const INITIAL_WATCHES = [
     price: 58000,
     priceFormatted: "58,000 CHF",
     images: [
-      "/images/image-22.png",
-      "/images/image-15.png",
-      "/images/image-27.png",
-      "/images/image-13.png"
+      "images/image-22.png",
+      "images/image-15.png",
+      "images/image-27.png",
+      "images/image-13.png"
     ],
-    video: "/videos/34855-403777679_medium.mp4",
+    video: "videos/34855-403777679_medium.mp4",
     featured: false,
     isNew: false,
     bestseller: true,
@@ -552,12 +553,12 @@ export const INITIAL_WATCHES = [
     price: 110000,
     priceFormatted: "110,000 CHF",
     images: [
-      "/images/image-28.png",
-      "/images/image-18.png",
-      "/images/image-30.png",
-      "/images/image-23.png"
+      "images/image-28.png",
+      "images/image-18.png",
+      "images/image-30.png",
+      "images/image-23.png"
     ],
-    video: "/videos/10853-226632937_medium.mp4",
+    video: "videos/10853-226632937_medium.mp4",
     featured: true,
     isNew: false,
     bestseller: false,
@@ -659,7 +660,13 @@ export const COLLECTIONS_LIST = [
   }
 ];
 
-export const BOUTIQUES = [
+export const INITIAL_WATCHES = RAW_WATCHES.map(w => ({
+  ...w,
+  images: (w.images || []).map(img => getAssetUrl(img)),
+  video: w.video ? getAssetUrl(w.video) : ''
+}));
+
+const RAW_BOUTIQUES = [
   {
     id: "geneva",
     city: "Geneva (Maison Salon)",
@@ -668,7 +675,7 @@ export const BOUTIQUES = [
     email: "geneva.salon@chronova-watches.ch",
     hours: "Monday – Saturday: 10:00 – 18:30 CET",
     privateSalon: "Grand Salon VIP 'Le Belvédère'",
-    image: "/images/image-1.png",
+    image: "images/image-1.png",
     coordinates: "46.2044° N, 6.1432° E",
     curator: "Jean-Pierre de Valmont, Master Horologist"
   },
@@ -680,7 +687,7 @@ export const BOUTIQUES = [
     email: "zurich.boutique@chronova-watches.ch",
     hours: "Monday – Friday: 09:30 – 19:00, Saturday: 09:30 – 18:00",
     privateSalon: "Salon Helvetia",
-    image: "/images/image-15.png",
+    image: "images/image-15.png",
     coordinates: "47.3700° N, 8.5390° E",
     curator: "Katharina S. Hirsbrunner"
   },
@@ -692,7 +699,7 @@ export const BOUTIQUES = [
     email: "london.mayfair@chronova-watches.com",
     hours: "Monday – Saturday: 10:00 – 18:00 GMT",
     privateSalon: "The Duke’s Watch Library",
-    image: "/images/image-14.png",
+    image: "images/image-14.png",
     coordinates: "51.5115° N, 0.1436° W",
     curator: "Lord Alistair Sterling"
   },
@@ -704,7 +711,7 @@ export const BOUTIQUES = [
     email: "fifthave@chronova-watches.com",
     hours: "Monday – Saturday: 10:00 – 18:30 EST",
     privateSalon: "The Manhattan Vault Suite",
-    image: "/images/image-18.png",
+    image: "images/image-18.png",
     coordinates: "40.7628° N, 73.9748° W",
     curator: "Alexander Vance, Senior Horological Advisor"
   },
@@ -716,7 +723,7 @@ export const BOUTIQUES = [
     email: "vendome@chronova-watches.fr",
     hours: "Monday – Saturday: 10:30 – 19:00 CET",
     privateSalon: "Salon Lumière & Haute Joaillerie",
-    image: "/images/image-22.png",
+    image: "images/image-22.png",
     coordinates: "48.8675° N, 2.3294° E",
     curator: "Éléonore de Montmirail"
   },
@@ -728,7 +735,7 @@ export const BOUTIQUES = [
     email: "ginza@chronova-watches.jp",
     hours: "Everyday: 11:00 – 20:00 JST",
     privateSalon: "The Imperial Horology Chamber",
-    image: "/images/image-28.png",
+    image: "images/image-28.png",
     coordinates: "35.6696° N, 139.7649° E",
     curator: "Kenjiro Takahashi"
   },
@@ -740,11 +747,16 @@ export const BOUTIQUES = [
     email: "dubai.difc@chronova-watches.ae",
     hours: "Sunday – Friday: 10:00 – 21:00 GST",
     privateSalon: "The Royal Majlis Lounge",
-    image: "/images/image-12.png",
+    image: "images/image-12.png",
     coordinates: "25.2048° N, 55.2708° E",
     curator: "Tariq Al-Mansoor"
   }
 ];
+
+export const BOUTIQUES = RAW_BOUTIQUES.map(b => ({
+  ...b,
+  image: getAssetUrl(b.image)
+}));
 
 export const INITIAL_ORDERS = [
   {

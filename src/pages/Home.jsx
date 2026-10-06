@@ -4,6 +4,7 @@ import {
   playMinuteRepeaterChime, 
   playMechanicalTick 
 } from '../utils/audioEngine';
+import { getAssetUrl } from '../utils/assets';
 import { 
   ArrowRight, 
   Sparkles, 
@@ -84,7 +85,7 @@ export default function Home() {
             playsInline
             className={`w-full h-full object-cover scale-105 filter ${themeMode === 'light' ? 'opacity-25 brightness-105' : 'opacity-35 brightness-90 contrast-125'}`}
           >
-            <source src="/videos/204582-925146042_medium.mp4" type="video/mp4" />
+            <source src={getAssetUrl('videos/204582-925146042_medium.mp4')} type="video/mp4" />
           </video>
           <div className={`absolute inset-0 bg-gradient-to-t ${
             themeMode === 'light' 
@@ -465,7 +466,7 @@ export default function Home() {
                   playsInline
                   className="w-full h-[400px] object-cover opacity-80"
                 >
-                  <source src="/videos/10853-226632937_medium.mp4" type="video/mp4" />
+                  <source src={getAssetUrl('videos/10853-226632937_medium.mp4')} type="video/mp4" />
                 </video>
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/40"></div>
                 

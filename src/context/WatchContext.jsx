@@ -10,6 +10,7 @@ import {
   isAmbientEscapementActive, 
   playMechanicalTick 
 } from '../utils/audioEngine';
+import { getAssetUrl } from '../utils/assets';
 
 const WatchContext = createContext();
 
@@ -31,7 +32,19 @@ export function WatchProvider({ children }) {
   // Timepieces (Persisted in localStorage with initial fallback)
   const [watches, setWatches] = useState(() => {
     const saved = localStorage.getItem('chronova_watches');
-    return saved ? JSON.parse(saved) : INITIAL_WATCHES;
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        return parsed.map(w => ({
+          ...w,
+          images: (w.images || []).map(img => getAssetUrl(img)),
+          video: w.video ? getAssetUrl(w.video) : ''
+        }));
+      } catch (e) {
+        return INITIAL_WATCHES;
+      }
+    }
+    return INITIAL_WATCHES;
   });
 
   // Orders State
@@ -55,7 +68,21 @@ export function WatchProvider({ children }) {
   // User State (Collector Vault)
   const [user, setUser] = useState(() => {
     const saved = localStorage.getItem('chronova_user');
-    return saved ? JSON.parse(saved) : {
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        if (parsed && parsed.registeredWatches) {
+          parsed.registeredWatches = parsed.registeredWatches.map(rw => ({
+            ...rw,
+            image: getAssetUrl(rw.image)
+          }));
+        }
+        return parsed;
+      } catch (e) {
+        // fallback to default
+      }
+    }
+    return {
       isLoggedIn: true,
       name: "Lord Julian Blackwood",
       email: "j.blackwood@mayfair-estates.co.uk",
@@ -70,7 +97,7 @@ export function WatchProvider({ children }) {
           acquiredDate: "2026-09-28",
           certificateId: "CH-GE-6002G-884920",
           hallmark: "Poinçon de Genève",
-          image: "/images/image-1.png"
+          image: getAssetUrl("images/image-1.png")
         },
         {
           serial: "CHR-5270-391048",
@@ -79,7 +106,7 @@ export function WatchProvider({ children }) {
           acquiredDate: "2026-09-15",
           certificateId: "CH-GE-5270P-391048",
           hallmark: "Chronova Hallmark",
-          image: "/images/image-15.png"
+          image: getAssetUrl("images/image-15.png")
         }
       ]
     };
@@ -404,7 +431,7 @@ export function WatchProvider({ children }) {
             acquiredDate: "2026-09-28",
             certificateId: "CH-GE-6002G-884920",
             hallmark: "Poinçon de Genève",
-            image: "/images/image-1.png"
+            image: getAssetUrl("images/image-1.png")
           },
           {
             serial: "CHR-5270-391048",
@@ -413,7 +440,7 @@ export function WatchProvider({ children }) {
             acquiredDate: "2026-09-15",
             certificateId: "CH-GE-5270P-391048",
             hallmark: "Chronova Hallmark",
-            image: "/images/image-15.png"
+            image: getAssetUrl("images/image-15.png")
           }
         ]
       });
